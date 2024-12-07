@@ -1,6 +1,6 @@
-import GameEra from "../../components/GameEra";
+import GameEra from '../../components/GameEra';
 
-import Era from "../../models/Era";
+import Era from '../../models/Era';
 
 import './index.css';
 
