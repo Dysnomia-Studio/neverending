@@ -1,0 +1,6 @@
+Fonts:
+
+Domine: https://fonts.google.com/specimen/Domine/license
+MedievalSharp: https://fonts.google.com/specimen/MedievalSharp/license
+Roboto: https://fonts.google.com/specimen/Roboto/license
+Tektur: https://fonts.google.com/specimen/Tektur/license

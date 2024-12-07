@@ -1,0 +1,51 @@
+/* Global style */
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+/* Fonts */
+@font-face {
+	font-family: 'Domine';
+	src: url('/fonts/Domine-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'MedievalSharp';
+	src: url('/fonts/MedievalSharp-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Roboto';
+	src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Tektur';
+	src: url('/fonts/Tektur-Regular.ttf') format('truetype');
+}
+
+.medieval {
+	font-family: 'MedievalSharp';
+}
+.modern {
+	font-family: 'Domine';
+}
+.future {
+	font-family: 'Tektur';
+}
+
+/* Variables */
+html {
+	--main-bg-color: #332f35;
+	--main-border-color: #DDDDDD;
+	--main-color: white;
+	--main-font: 'Roboto';
+}
+
+/* Default theme */
+html {
+	background: var(--main-bg-color);
+	color: var(--main-color);
+	font-family: var(--main-font);
+}
+
