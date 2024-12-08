@@ -6,5 +6,5 @@ export default interface GameMap {
 	content: GameMapTile[];
 }
 
-export const GAMEMAP_TILES_AMOUNT_X = 40;
-export const GAMEMAP_TILES_AMOUNT_Y = 23;
+export const GAMEMAP_TILES_AMOUNT_X = 32;
+export const GAMEMAP_TILES_AMOUNT_Y = 18;
