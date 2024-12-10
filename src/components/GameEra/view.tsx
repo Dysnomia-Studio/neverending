@@ -18,6 +18,9 @@ function ConvertToCanvas2DElements(value: GameMapTile, tileSize: number): unknow
 		case TileType.Path:
 			color = '#4d004d';
 			break;
+		case TileType.Player_Base:
+			color = '#FF0000';
+			break;
 		case TileType.Turret_Slot:
 			color = '#777777';
 			break;

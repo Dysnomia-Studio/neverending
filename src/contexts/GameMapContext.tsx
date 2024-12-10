@@ -9,22 +9,22 @@ export const GameMapContext = createContext<GameMap[]>([]);
 
 const map = `
 ????????????????????????????????
-?..............................?
-?..............................?
-?UUUUUUU.......................?
-?UPPPPPT.......................?
-?UPU.UPUB......................?
-?UPU.UPU.......................?
-?UPU.UPTUUUUU..................?
-PPPT.UPPPPPPP..................?
-PPPUBUUUUUUUU..................?
-?UPU....UPPPP..................?
-?UPU....UPUUU..................?
-?UPTUUU.UPU....................?
-?UPPPPU.UPU....................?
-?UUUUPUTUPU....................?
-?...UPPPPPU....................?
-???.UUUUUUU....................?
+????????????????????????????????
+?.......???????????...........??
+?UUUUUUU.?????????.UUUUUUUUUU.??
+?UPPPPPT.?????????.UPPPPPPPP7H??
+?UPU.UPUB.???????..UPU.GG.UP7H??
+?UPU.UPU...........UPUGHHGUP8H??
+?UPU.UPTUUUUUUUUUUUUPUHHHHUP8H??
+PPPT.UPPPPPPPPPPPPPPPU8888UZZZ??
+PPPUBUUUUUUUUUUUUUUUP333333ZZZ??
+?UPU....UPPPPPPPPPPPP788887ZZZ??
+?UPU....UPUUUUUUUUUU277777728H??
+?UPTUUU.UPU....HHGG7277222728H??
+?UPPPPU.UPU..????HG7277272727H??
+?UUUUPUTUPU.??????G7222272227H??
+?...UPPPPPU.??????G77777H7777H??
+???.UUUUUUU.???????GGGHHHHHHHH??
 ????????????????????????????????
 `;
 
@@ -32,36 +32,78 @@ PPPUBUUUUUUUU..................?
 const mapLines : string[] = map.split('\n').filter(x => x !== '');
 console.log(mapLines);
 
-const defaultEntries : GameMapTile[] = [];
-for(let y = 0; y < GAMEMAP_TILES_AMOUNT_Y; y++) {
-	const mapLine : string[] = mapLines[y].split('');
+function getMapForEra(era : Era) {
+	const entries : GameMapTile[] = [];
+	for(let y = 0; y < GAMEMAP_TILES_AMOUNT_Y; y++) {
+		const mapLine : string[] = mapLines[y].split('');
 
-	for(let x = 0; x < GAMEMAP_TILES_AMOUNT_X; x++) {
-		let tileType : TileType = TileType.Building_Slot;
-		switch(mapLine[x]) {
-			case 'B':
-				tileType = TileType.Building;
-				break;
-			case 'P':
-				tileType = TileType.Path;
-				break;
-			case 'T':
-				tileType = TileType.Turret;
-				break;
-			case 'U':
-				tileType = TileType.Turret_Slot;
-				break;
-			case '?':
-				tileType = TileType.Unbuildable;
-				break;
+		for(let x = 0; x < GAMEMAP_TILES_AMOUNT_X; x++) {
+			let tileType : TileType = TileType.Unbuildable;
+			switch(mapLine[x]) {
+				case 'B':
+					tileType = TileType.Building;
+					break;
+				case 'P':
+					tileType = TileType.Path;
+					break;
+				case 'T':
+					tileType = TileType.Turret;
+					break;
+				case 'U':
+					tileType = TileType.Turret_Slot;
+					break;
+				case 'Z':
+					tileType = TileType.Player_Base;
+					break;
+				case '.':
+					tileType = TileType.Building_Slot;
+					break;
+
+				// Era-specific thingies
+				case 'G':
+					if(era !== Era.Medieval) {
+						tileType = TileType.Building_Slot;
+					}
+					break;
+				case 'H':
+					if(era === Era.Future) {
+						tileType = TileType.Building_Slot;
+					}
+					break;
+				case '2':
+					if(era !== Era.Medieval) {
+						tileType = TileType.Path;
+					}
+					break;
+				case '3':
+					if(era === Era.Future) {
+						tileType = TileType.Path;
+					}
+					break;
+				case '7':
+					if(era !== Era.Medieval) {
+						tileType = TileType.Turret_Slot;
+					}
+					break;
+				case '8':
+					if(era === Era.Future) {
+						tileType = TileType.Turret_Slot;
+					}
+					break;
+				case '?':
+					tileType = TileType.Unbuildable;
+					break;
+			}
+
+			entries.push({
+				x,
+				y,
+				tileType,
+			});
 		}
-
-		defaultEntries.push({
-			x,
-			y,
-			tileType,
-		});
 	}
+
+	return entries;
 }
 
 export default function GameMapContextProvider({ children } : { children: React.ReactNode }) {
@@ -70,13 +112,13 @@ export default function GameMapContextProvider({ children } : { children: React.
 	useEffect(() => {
 		setGameMapContent([{
 			era: Era.Medieval,
-			content: [...defaultEntries]
+			content: getMapForEra(Era.Medieval),
 		}, {
 			era: Era.Modern,
-			content: [...defaultEntries]
+			content: getMapForEra(Era.Modern),
 		}, {
 			era: Era.Future,
-			content: [...defaultEntries]
+			content: getMapForEra(Era.Future),
 		}])
 	}, []);
 
