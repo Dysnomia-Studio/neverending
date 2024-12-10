@@ -1,7 +1,7 @@
+import Position from './Position';
 import TileType from './TileType';
 
 export default interface GameMapTile {
-	x: number,
-	y: number,
+	position: Position,
 	tileType: TileType,
 }

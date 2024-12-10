@@ -4,7 +4,7 @@ TO DO:
 - [X] Slightly different maps per timeline
 - [X] Mobs with pathfinding
 - [X] User Health points
-- [ ] Use Position interface everywhere 
+- [X] Use Position interface everywhere 
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
 - [ ] Turrets attacking the mobs + Mobs having HP + Earn money when killing them
 - [ ] Spawn enemies every X seconds

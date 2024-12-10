@@ -95,8 +95,10 @@ function getMapForEra(era : Era) {
 			}
 
 			entries.push({
-				x,
-				y,
+				position: {
+					x,
+					y,
+				},
 				tileType,
 			});
 		}

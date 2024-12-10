@@ -37,22 +37,22 @@ function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number) : 
 	}
 
 	return new Rect({
-		id: value.x + '-' + value.y,
-		x: value.x * tileSize,
-		y: value.y * tileSize,
+		id: value.position.x + '-' + value.position.y,
+		x: value.position.x * tileSize,
+		y: value.position.y * tileSize,
 		fill: color,
 		height: tileSize,
 		width: tileSize
 	});
 }
 
-function ConvertEntitiesToCanvas2DElements(value: any, tileSize: number) : Circle {
+function ConvertEntitiesToCanvas2DElements(value: Enemy, tileSize: number) : Circle {
 	// TODO: make it 60fps
 
 	return new Circle({
 		id: 'ent-' + value.x + '-' + value.y,
-		x: (value.x + 0.5) * tileSize,
-		y: (value.y + 0.5) * tileSize,
+		x: (value.position.x + 0.5) * tileSize,
+		y: (value.position.y + 0.5) * tileSize,
 		radius: tileSize * 0.4,
 		fill: 'black',
 		zIndex: 10
@@ -61,18 +61,18 @@ function ConvertEntitiesToCanvas2DElements(value: any, tileSize: number) : Circl
 
 function getPathAround(mapContent: GameMapTile[], x: number, y: number) : GameMapTile[] {
     return [
-    	mapContent.find(t => t.x === x && t.y === y - 1),
-    	mapContent.find(t => t.x === x && t.y === y + 1),
-    	mapContent.find(t => t.x === x - 1 && t.y === y),
-    	mapContent.find(t => t.x === x + 1 && t.y === y),
+    	mapContent.find(t => t.position.x === x && t.position.y === y - 1),
+    	mapContent.find(t => t.position.x === x && t.position.y === y + 1),
+    	mapContent.find(t => t.position.x === x - 1 && t.position.y === y),
+    	mapContent.find(t => t.position.x === x + 1 && t.position.y === y),
     ].filter(x => typeof x !== 'undefined').filter(x => x.tileType === TileType.Path);
 }
 
 function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[], applyDamages: (amount: number) => void ): Enemy[] {
     const newEnemies = [];
     for(const enemy of currEnemies) {
-    	const neighboors = getPathAround(mapContent, enemy.x, enemy.y);
-    	const validNeighboors = neighboors.filter(n => n.x >= enemy.x && !enemy.visitedTiles.find(t => t.x === n.x && t.y === n.y));
+    	const neighboors = getPathAround(mapContent, enemy.position.x, enemy.position.y);
+    	const validNeighboors = neighboors.filter(n => n.position.x >= enemy.position.x && !enemy.visitedTiles.find(t => t.x === n.position.x && t.y === n.position.y));
     	if(validNeighboors.length === 0) { // We're at the base
     		applyDamages(enemy.damages);
     		continue;
@@ -80,11 +80,11 @@ function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[], applyDama
 
     	// TODO: prevent NPC going down in Medieval map on (20,9)
 
-    	const newPosition = validNeighboors[Math.round(Math.random() * (validNeighboors.length - 1))]; 
+    	const newPosition = validNeighboors[Math.round(Math.random() * (validNeighboors.length - 1))].position; 
 
-    	enemy.visitedTiles.push({ x: enemy.x, y: enemy.y });
-    	enemy.x = newPosition.x;
-    	enemy.y = newPosition.y;
+    	enemy.visitedTiles.push({ ...enemy.position });
+    	enemy.position.x = newPosition.x;
+    	enemy.position.y = newPosition.y;
 
     	newEnemies.push(enemy);
     }
@@ -100,8 +100,10 @@ export default function GameEra({ era } : GameEraInput) {
 
 	const [enemies, setEnemies] = useState<Enemy[]>([{
 		enemyType: EnemyType.Dark_Knight,
-		x: 0,
-		y: 9,
+		position: { 
+			x: 0,
+			y: 9,
+		},
 		visitedTiles: [],
 		damages: 1
 	}]);
