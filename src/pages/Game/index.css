@@ -4,3 +4,8 @@
 	width: calc((2 * ((100vw / 3) + 2rem + 2px)) + 2rem);
 	text-align: center;
 }
+
+.game, .game-sidebar {
+	display: inline-block;
+	vertical-align: top;
+}

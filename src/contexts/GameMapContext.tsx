@@ -30,7 +30,6 @@ PPPUBUUUUUUUUUUUUUUUP333333ZZZ??
 
 
 const mapLines : string[] = map.split('\n').filter(x => x !== '');
-console.log(mapLines);
 
 function getMapForEra(era : Era) {
 	const entries : GameMapTile[] = [];

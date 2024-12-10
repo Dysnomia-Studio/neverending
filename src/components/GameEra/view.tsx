@@ -11,6 +11,7 @@ import TileType from '../../models/TileType';
 import Enemy from '../../models/Enemy';
 import EnemyType from '../../models/EnemyType';
 import { useEffect, useState } from 'react';
+import useApplyDamages from '../../hooks/useApplyDamages';
 
 function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number) : Rect {
 	let color : string = '#666666';
@@ -65,14 +66,19 @@ function getPathAround(mapContent: GameMapTile[], x: number, y: number) : GameMa
     ].filter(x => typeof x !== 'undefined').filter(x => x.tileType === TileType.Path);
 }
 
-function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[]): Enemy[] {
+function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[], applyDamages: (amount: number) => void ): Enemy[] {
     const newEnemies = [];
     for(const enemy of currEnemies) {
     	const neighboors = getPathAround(mapContent, enemy.x, enemy.y);
     	const validNeighboors = neighboors.filter(n => n.x >= enemy.x && !enemy.visitedTiles.find(t => t.x === n.x && t.y === n.y));
-    	const newPosition = validNeighboors[Math.round(Math.random() * (validNeighboors.length - 1))]; 
+    	if(validNeighboors.length === 0) { // We're at the base
+    		applyDamages(1);
+    		continue;
+    	}
 
-    	console.log(validNeighboors);
+    	// TODO: prevent NPC going down in Medieval map on (20,9)
+
+    	const newPosition = validNeighboors[Math.round(Math.random() * (validNeighboors.length - 1))]; 
 
     	enemy.visitedTiles.push({ x: enemy.x, y: enemy.y });
     	enemy.x = newPosition.x;
@@ -88,6 +94,7 @@ function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[]): Enemy[] 
 export default function GameEra({ era } : GameEraInput) {
 	const { width, height } = useWindowDimensions();
 	const mapContent = useMapContent(era);
+	const applyDamages = useApplyDamages();
 
 	const [enemies, setEnemies] = useState<Enemy[]>([{
 		enemyType: EnemyType.Dark_Knight,
@@ -102,7 +109,7 @@ export default function GameEra({ era } : GameEraInput) {
 		}
 
 		const intervalId = setInterval(() => {
-			setEnemies((currEnemies) => moveEnemies(currEnemies, mapContent.content));
+			setEnemies((currEnemies) => moveEnemies(currEnemies, mapContent.content, applyDamages));
 		}, 1000);
 
 		return () => clearInterval(intervalId);
