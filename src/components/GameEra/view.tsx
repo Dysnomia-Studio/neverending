@@ -1,4 +1,4 @@
-import { Canvas2D, useWindowDimensions, Rect } from 'canvas2d-wrapper';
+import { Canvas2D, useWindowDimensions, Circle, Rect } from 'canvas2d-wrapper';
 
 import useMapContent from '../../hooks/useMapContent';
 
@@ -8,8 +8,11 @@ import GameMapTile from '../../models/GameMapTile';
 import './index.css';
 import { GAMEMAP_TILES_AMOUNT_X, GAMEMAP_TILES_AMOUNT_Y } from '../../models/GameMap';
 import TileType from '../../models/TileType';
+import Enemy from '../../models/Enemy';
+import EnemyType from '../../models/EnemyType';
+import { useEffect, useState } from 'react';
 
-function ConvertToCanvas2DElements(value: GameMapTile, tileSize: number): unknown {
+function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number) : Rect {
 	let color : string = '#666666';
 	switch(value.tileType) {
 		case TileType.Building:
@@ -42,9 +45,68 @@ function ConvertToCanvas2DElements(value: GameMapTile, tileSize: number): unknow
 	});
 }
 
+function ConvertEntitiesToCanvas2DElements(value: any, tileSize: number) : Circle {
+	return new Circle({
+		id: 'ent-' + value.x + '-' + value.y,
+		x: (value.x + 0.5) * tileSize,
+		y: (value.y + 0.5) * tileSize,
+		radius: tileSize * 0.4,
+		fill: 'black',
+		zIndex: 10
+	});
+}
+
+function getPathAround(mapContent: GameMapTile[], x: number, y: number) : GameMapTile[] {
+    return [
+    	mapContent.find(t => t.x === x && t.y === y - 1),
+    	mapContent.find(t => t.x === x && t.y === y + 1),
+    	mapContent.find(t => t.x === x - 1 && t.y === y),
+    	mapContent.find(t => t.x === x + 1 && t.y === y),
+    ].filter(x => typeof x !== 'undefined').filter(x => x.tileType === TileType.Path);
+}
+
+function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[]): Enemy[] {
+    const newEnemies = [];
+    for(const enemy of currEnemies) {
+    	const neighboors = getPathAround(mapContent, enemy.x, enemy.y);
+    	const validNeighboors = neighboors.filter(n => n.x >= enemy.x && !enemy.visitedTiles.find(t => t.x === n.x && t.y === n.y));
+    	const newPosition = validNeighboors[Math.round(Math.random() * (validNeighboors.length - 1))]; 
+
+    	console.log(validNeighboors);
+
+    	enemy.visitedTiles.push({ x: enemy.x, y: enemy.y });
+    	enemy.x = newPosition.x;
+    	enemy.y = newPosition.y;
+
+    	newEnemies.push(enemy);
+    }
+
+    return newEnemies;
+}
+
+
 export default function GameEra({ era } : GameEraInput) {
 	const { width, height } = useWindowDimensions();
 	const mapContent = useMapContent(era);
+
+	const [enemies, setEnemies] = useState<Enemy[]>([{
+		enemyType: EnemyType.Dark_Knight,
+		x: 0,
+		y: 9,
+		visitedTiles: [],
+	}]);
+
+	useEffect(() => {
+		if(!mapContent?.content) {
+			return;
+		}
+
+		const intervalId = setInterval(() => {
+			setEnemies((currEnemies) => moveEnemies(currEnemies, mapContent.content));
+		}, 1000);
+
+		return () => clearInterval(intervalId);
+	}, [mapContent]);
 
 	const canvasWidth = width / 3;
 	const tileSize = canvasWidth / GAMEMAP_TILES_AMOUNT_X;
@@ -64,7 +126,20 @@ export default function GameEra({ era } : GameEraInput) {
 			lockYAxis={true}
 
 			onClick={() => []}
-			onFrame={() => mapContent?.content.map((element) => ConvertToCanvas2DElements(element, tileSize)).flat() }
+			onFrame={() => {
+				if(!mapContent?.content) {
+					console.error('Error when reading mapContent !');
+					return [];
+				}
+
+				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(element, tileSize));
+				const convertedEntities = enemies.map((entity) => ConvertEntitiesToCanvas2DElements(entity, tileSize));
+
+				return [
+					...convertedMapContent,
+					...convertedEntities
+				];
+			}}
 			onHover={() => []}
 			onRightClick={() => []}
 		/>
@@ -72,3 +147,6 @@ export default function GameEra({ era } : GameEraInput) {
 		</div>
 	);
 }
+
+
+
