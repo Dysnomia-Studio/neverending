@@ -8,4 +8,6 @@ export default interface Enemy {
 	y: number;
 
 	visitedTiles: Position[],
+
+	damages: number,
 }

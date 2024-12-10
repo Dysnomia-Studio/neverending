@@ -47,6 +47,8 @@ function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number) : 
 }
 
 function ConvertEntitiesToCanvas2DElements(value: any, tileSize: number) : Circle {
+	// TODO: make it 60fps
+
 	return new Circle({
 		id: 'ent-' + value.x + '-' + value.y,
 		x: (value.x + 0.5) * tileSize,
@@ -72,7 +74,7 @@ function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[], applyDama
     	const neighboors = getPathAround(mapContent, enemy.x, enemy.y);
     	const validNeighboors = neighboors.filter(n => n.x >= enemy.x && !enemy.visitedTiles.find(t => t.x === n.x && t.y === n.y));
     	if(validNeighboors.length === 0) { // We're at the base
-    		applyDamages(1);
+    		applyDamages(enemy.damages);
     		continue;
     	}
 
@@ -101,6 +103,7 @@ export default function GameEra({ era } : GameEraInput) {
 		x: 0,
 		y: 9,
 		visitedTiles: [],
+		damages: 1
 	}]);
 
 	useEffect(() => {
