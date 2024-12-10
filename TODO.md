@@ -1,0 +1,20 @@
+TO DO:
+- [X] 3 timelines layout
+- [X] Hardcoded map + various tiles types
+- [X] Slightly different maps per timeline
+- [X] Mobs with pathfinding
+- [X] User Health points
+- [ ] Use Position interface everywhere 
+- [ ] Fix pathfinding to prevent going in places where it'll blocked
+- [ ] Turrets attacking the mobs + Mobs having HP + Earn money when killing them
+- [ ] Spawn enemies every X seconds
+- [ ] Waves
+- [ ] Let the player place turrets (generic)
+- [ ] Different turrets types
+- [ ] Different enemies types
+- [ ] Let the player place buildings + different buildings types
+- [ ] 30 fps enemies movement
+- [ ] Unlock times ones after another
+- [ ] Main menu
+- [ ] Trans-time boss
+- [ ] (Not sure for demo) Procedurally-generated map
