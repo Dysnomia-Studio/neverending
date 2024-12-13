@@ -1,17 +1,11 @@
-import {
-	CanvasImage,
-	Circle,
-	Poly, 
-	Rect,
-} from 'canvas2d-wrapper';
+import { CanvasObject, Circle, Rect } from 'canvas2d-wrapper';
 
 import Era from '../../../models/Era';
 import GameMapTile from '../../../models/GameMapTile';
-import TileType from '../../../models/TileType';
 
- import palettes from './colorPalettes';
+import palettes from './colorPalettes';
 
-export default function ConvertTilesToCanvas2DElements(era: Era, value: GameMapTile, tileSize: number, showRanges : string[]) : (Circle | Rect | CanvasImage | Poly)[] {
+export default function ConvertTilesToCanvas2DElements(era: Era, value: GameMapTile, tileSize: number, showRanges : string[]) : CanvasObject[] {
 	const currentId = value.tileType + '-' + value.position.x + '-' + value.position.y;
 	const canvasElements = [];
 	if(showRanges.includes(currentId)) {

@@ -4,16 +4,16 @@ import palettes from '../GameEra/gameEntitiesToCanvas/colorPalettes';
 
 import './index.css';
 
-function toWord(key) {
+function toWord(key : string) {
 	const cleanKey = key.replaceAll('_', ' ').trim();
-	const firstLetter = cleanKey.substr(0, 1);
-	const otherLetters = cleanKey.substr(1);
+	const firstLetter = cleanKey.substring(0, 1);
+	const otherLetters = cleanKey.substring(1);
 
 	return firstLetter.toUpperCase() + otherLetters;
 }
 
 export default function GameEraPaletteLegend({ era } : { era : Era }) {
-	const currentPalette = palettes[era];
+	const currentPalette : { [id : string] : string } = palettes[era];
 
 	return (
 		<ul className="game-era-palette-legend">

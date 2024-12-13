@@ -3,7 +3,11 @@ import { useContext } from 'react';
 import { GlobalGameContext } from '../contexts/GlobalGameContext';
 
 export default function useUserCredits() {
-	const { credits } = useContext(GlobalGameContext);
+	const contextData = useContext(GlobalGameContext);
+	if(contextData === null) {
+		return 0;
+	}
 
-	return credits;
+	return contextData.credits;
 }
+

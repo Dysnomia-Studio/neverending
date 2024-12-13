@@ -11,7 +11,7 @@
     "test": "echo \"tests\""
   },
   "dependencies": {
-    "canvas2d-wrapper": "^1.8.0",
+    "canvas2d-wrapper": "^1.9.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -3,7 +3,10 @@ import { useContext } from 'react';
 import { GlobalGameContext } from '../contexts/GlobalGameContext';
 
 export default function useApplyDamages() {
-	const { applyDamages } = useContext(GlobalGameContext);
+	const contextData = useContext(GlobalGameContext);
+	if(contextData === null) {
+		return () => {};
+	}
 
-	return applyDamages;
+	return contextData.applyDamages;
 }

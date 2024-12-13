@@ -1,15 +1,10 @@
-import {
-	CanvasImage,
-	Circle,
-	Poly, 
-	Rect,
-} from 'canvas2d-wrapper';
+import { CanvasObject, Circle, Rect } from 'canvas2d-wrapper';
 
 import Enemy from '../../../models/Enemy';
 
 const HP_PER_TILE = 20;
 
-export default function ConvertEnemiesToCanvas2DElements(value: Enemy, tileSize: number) : (Circle | Rect | CanvasImage | Poly)[] {
+export default function ConvertEnemiesToCanvas2DElements(value: Enemy, tileSize: number) : CanvasObject[] {
 	// TODO: make it 60fps
 
 	const hpBarTotalWidth = value.maxHealth / HP_PER_TILE * tileSize

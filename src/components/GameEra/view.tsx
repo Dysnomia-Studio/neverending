@@ -1,4 +1,8 @@
-import { Canvas2D, useWindowDimensions } from 'canvas2d-wrapper';
+import {
+	Canvas2D,
+	CanvasObject,
+	useWindowDimensions,
+} from 'canvas2d-wrapper';
 import { useEffect, useState } from 'react';
 
 import GameEraPaletteLegend from '../GameEraPaletteLegend';
@@ -55,7 +59,7 @@ function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[], applyDama
 export default function GameEra({ era } : GameEraInput) {
 	const [hoveredId, setHoveredId] = useState<string | null>(null);
 
-	const { width, height } = useWindowDimensions();
+	const { width } = useWindowDimensions();
 	const mapContent = useMapContent(era);
 	const applyDamages = useApplyDamages();
 
@@ -81,7 +85,7 @@ export default function GameEra({ era } : GameEraInput) {
 		}, 1000);
 
 		return () => clearInterval(intervalId);
-	}, [mapContent]);
+	}, [mapContent, applyDamages]);
 
 	const canvasWidth = width / 3;
 	const tileSize = canvasWidth / GAMEMAP_TILES_AMOUNT_X;
@@ -121,7 +125,7 @@ export default function GameEra({ era } : GameEraInput) {
 						...convertedEntities
 					];
 				}}
-				onHover={(element) => setHoveredId(element?.id)}
+				onHover={(element : CanvasObject) => setHoveredId(element?.id)}
 				onRightClick={console.log}
 			/>
 			<span className="era-name">{era.toUpperCase()}</span>

@@ -3,7 +3,10 @@ import { useContext } from 'react';
 import { GlobalGameContext } from '../contexts/GlobalGameContext';
 
 export default function useHealthPoints() {
-	const { healthPoints } = useContext(GlobalGameContext);
+	const contextData = useContext(GlobalGameContext);
+	if(contextData === null) {
+		return 0;
+	}
 
-	return healthPoints;
+	return contextData.healthPoints;
 }
