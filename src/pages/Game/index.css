@@ -9,3 +9,7 @@
 	display: inline-block;
 	vertical-align: top;
 }
+
+.game-sidebar {
+	padding: 1rem;
+}

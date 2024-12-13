@@ -1,5 +1,7 @@
 import GameEra from '../../components/GameEra';
+
 import useHealthPoints from '../../hooks/useHealthPoints';
+import useUserCredits from '../../hooks/useUserCredits';
 
 import Era from '../../models/Era';
 
@@ -7,6 +9,7 @@ import './index.css';
 
 export default function Game() {
 	const healthPoints = useHealthPoints();
+	const credits = useUserCredits();
 
 	return (
 		<>
@@ -16,7 +19,8 @@ export default function Game() {
 			<GameEra era={Era.Future} />
 		</div>
 		<div className="game-sidebar">
-			HP: {healthPoints}
+			<p>HP: {healthPoints}</p>
+			<p>Credits: {credits}</p>
 		</div>
 		</>
 	)

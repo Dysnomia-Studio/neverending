@@ -6,6 +6,7 @@ TO DO:
 - [X] User Health points
 - [X] Use Position interface everywhere 
 - [X] Mobs having HP
+- [X] User Credits
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
 - [ ] Turrets attacking the mobs + Earn money when killing them
 - [ ] Spawn enemies every X seconds
