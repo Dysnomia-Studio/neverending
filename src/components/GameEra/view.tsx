@@ -86,6 +86,7 @@ export default function GameEra({ era } : GameEraInput) {
 	return (
 		<div className={`game-view-parent ${era}`}>
 		<Canvas2D
+			id={era}
 			className="game-view"
 			
 			height={canvasHeight}
@@ -96,7 +97,7 @@ export default function GameEra({ era } : GameEraInput) {
 			lockXAxis={true}
 			lockYAxis={true}
 
-			onClick={() => []}
+			onClick={console.log}
 			onFrame={() => {
 				if(!mapContent?.content) {
 					console.error('Error when reading mapContent !');
@@ -111,8 +112,8 @@ export default function GameEra({ era } : GameEraInput) {
 					...convertedEntities
 				];
 			}}
-			onHover={() => []}
-			onRightClick={() => []}
+			onHover={() => {}}
+			onRightClick={console.log}
 		/>
 		<span className="era-name">{era.toUpperCase()}</span>
 		</div>
