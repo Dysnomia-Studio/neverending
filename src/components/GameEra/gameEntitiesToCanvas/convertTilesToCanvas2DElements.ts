@@ -5,32 +5,13 @@ import {
 	Rect,
 } from 'canvas2d-wrapper';
 
+import Era from '../../../models/Era';
 import GameMapTile from '../../../models/GameMapTile';
 import TileType from '../../../models/TileType';
 
-export default function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number, showRanges : string[]) : (Circle | Rect | CanvasImage | Poly)[] {
-	let color : string = '#666666';
-	switch(value.tileType) {
-		case TileType.Building:
-			color = '#006666';
-			break;
-		case TileType.Path:
-			color = '#4d004d';
-			break;
-		case TileType.Player_Base:
-			color = '#FF0000';
-			break;
-		case TileType.Turret_Slot:
-			color = '#777777';
-			break;
-		case TileType.Turret:
-			color = '#222222';
-			break;
-		case TileType.Unbuildable:
-			color = '#006600';
-			break;
-	}
+ import palettes from './colorPalettes';
 
+export default function ConvertTilesToCanvas2DElements(era: Era, value: GameMapTile, tileSize: number, showRanges : string[]) : (Circle | Rect | CanvasImage | Poly)[] {
 	const currentId = value.tileType + '-' + value.position.x + '-' + value.position.y;
 	const canvasElements = [];
 	if(showRanges.includes(currentId)) {
@@ -51,7 +32,7 @@ export default function ConvertTilesToCanvas2DElements(value: GameMapTile, tileS
 			id: currentId,
 			x: value.position.x * tileSize,
 			y: value.position.y * tileSize,
-			fill: color,
+			fill: palettes[era][value.tileType],
 			height: tileSize,
 			width: tileSize
 		})

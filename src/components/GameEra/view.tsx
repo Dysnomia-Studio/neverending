@@ -106,7 +106,7 @@ export default function GameEra({ era } : GameEraInput) {
 					return [];
 				}
 
-				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(element, tileSize, [hoveredId])).flat();
+				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(era, element, tileSize, [hoveredId])).flat();
 				const convertedEntities = enemies.map((entity) => ConvertEnemiesToCanvas2DElements(entity, tileSize)).flat();
 
 				return [
