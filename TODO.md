@@ -5,8 +5,9 @@ TO DO:
 - [X] Mobs with pathfinding
 - [X] User Health points
 - [X] Use Position interface everywhere 
+- [X] Mobs having HP
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
-- [ ] Turrets attacking the mobs + Mobs having HP + Earn money when killing them
+- [ ] Turrets attacking the mobs + Earn money when killing them
 - [ ] Spawn enemies every X seconds
 - [ ] Waves
 - [ ] Let the player place turrets (generic)

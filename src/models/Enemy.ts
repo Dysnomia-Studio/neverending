@@ -9,4 +9,7 @@ export default interface Enemy {
 	visitedTiles: Position[],
 
 	damages: number,
+
+	health: number,
+	maxHealth: number,
 }
