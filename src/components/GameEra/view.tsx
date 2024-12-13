@@ -1,6 +1,8 @@
 import { Canvas2D, useWindowDimensions } from 'canvas2d-wrapper';
 import { useEffect, useState } from 'react';
 
+import GameEraPaletteLegend from '../GameEraPaletteLegend';
+
 import useMapContent from '../../hooks/useMapContent';
 import useApplyDamages from '../../hooks/useApplyDamages';
 
@@ -87,37 +89,38 @@ export default function GameEra({ era } : GameEraInput) {
 
 	return (
 		<div className={`game-view-parent ${era}`}>
-		<Canvas2D
-			id={era}
-			className="game-view"
-			
-			height={canvasHeight}
-			width={canvasWidth}
-			deltaLeft={-1 * (canvasWidth / 2)}
-			deltaTop={-1 * (canvasHeight / 2)}
+			<Canvas2D
+				id={era}
+				className="game-view"
+				
+				height={canvasHeight}
+				width={canvasWidth}
+				deltaLeft={-1 * (canvasWidth / 2)}
+				deltaTop={-1 * (canvasHeight / 2)}
 
-			lockXAxis={true}
-			lockYAxis={true}
+				lockXAxis={true}
+				lockYAxis={true}
 
-			onClick={console.log}
-			onFrame={() => {
-				if(!mapContent?.content) {
-					console.error('Error when reading mapContent !');
-					return [];
-				}
+				onClick={console.log}
+				onFrame={() => {
+					if(!mapContent?.content) {
+						console.error('Error when reading mapContent !');
+						return [];
+					}
 
-				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(era, element, tileSize, [hoveredId])).flat();
-				const convertedEntities = enemies.map((entity) => ConvertEnemiesToCanvas2DElements(entity, tileSize)).flat();
+					const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(era, element, tileSize, [hoveredId])).flat();
+					const convertedEntities = enemies.map((entity) => ConvertEnemiesToCanvas2DElements(entity, tileSize)).flat();
 
-				return [
-					...convertedMapContent,
-					...convertedEntities
-				];
-			}}
-			onHover={(element) => setHoveredId(element.id)}
-			onRightClick={console.log}
-		/>
-		<span className="era-name">{era.toUpperCase()}</span>
+					return [
+						...convertedMapContent,
+						...convertedEntities
+					];
+				}}
+				onHover={(element) => setHoveredId(element.id)}
+				onRightClick={console.log}
+			/>
+			<span className="era-name">{era.toUpperCase()}</span>
+			<GameEraPaletteLegend era={era} />
 		</div>
 	);
 }

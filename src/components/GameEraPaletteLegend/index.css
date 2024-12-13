@@ -1,0 +1,11 @@
+.game-era-palette-legend {
+	bottom: 0;
+	display: none;
+	font-size: 1.5rem;
+	left: 0;
+	line-height: 32px;
+	list-style: none;
+	padding: 1rem;
+	position: fixed;
+	text-align: left;
+}
