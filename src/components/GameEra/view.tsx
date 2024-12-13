@@ -1,89 +1,21 @@
-import { Canvas2D, useWindowDimensions, Circle, Rect, CanvasImage, Poly } from 'canvas2d-wrapper';
+import { Canvas2D, useWindowDimensions } from 'canvas2d-wrapper';
+import { useEffect, useState } from 'react';
 
 import useMapContent from '../../hooks/useMapContent';
+import useApplyDamages from '../../hooks/useApplyDamages';
 
 import GameEraInput from '../../models/GameEraInput';
 import GameMapTile from '../../models/GameMapTile';
 
-import './index.css';
-import { GAMEMAP_TILES_AMOUNT_X, GAMEMAP_TILES_AMOUNT_Y } from '../../models/GameMap';
-import TileType from '../../models/TileType';
 import Enemy from '../../models/Enemy';
 import EnemyType from '../../models/EnemyType';
-import { useEffect, useState } from 'react';
-import useApplyDamages from '../../hooks/useApplyDamages';
+import { GAMEMAP_TILES_AMOUNT_X, GAMEMAP_TILES_AMOUNT_Y } from '../../models/GameMap';
+import TileType from '../../models/TileType';
 
-const HP_PER_TILE = 20;
+import ConvertTilesToCanvas2DElements from './gameEntitiesToCanvas/convertTilesToCanvas2DElements';
+import ConvertEnemiesToCanvas2DElements from './gameEntitiesToCanvas/convertEnemiesToCanvas2DElements';
 
-function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number) : Rect {
-	let color : string = '#666666';
-	switch(value.tileType) {
-		case TileType.Building:
-			color = '#006666';
-			break;
-		case TileType.Path:
-			color = '#4d004d';
-			break;
-		case TileType.Player_Base:
-			color = '#FF0000';
-			break;
-		case TileType.Turret_Slot:
-			color = '#777777';
-			break;
-		case TileType.Turret:
-			color = '#222222';
-			break;
-		case TileType.Unbuildable:
-			color = '#006600';
-			break;
-	}
-
-	return new Rect({
-		id: value.position.x + '-' + value.position.y,
-		x: value.position.x * tileSize,
-		y: value.position.y * tileSize,
-		fill: color,
-		height: tileSize,
-		width: tileSize
-	});
-}
-
-function ConvertEntitiesToCanvas2DElements(value: Enemy, tileSize: number) : (Circle | Rect | CanvasImage | Poly)[] {
-	// TODO: make it 60fps
-
-	const hpBarTotalWidth = value.maxHealth / HP_PER_TILE * tileSize
-	const hpBarRedWidth = value.health / HP_PER_TILE * tileSize
-	const hpBarHeight = tileSize / 5;
-
-	return [
-		new Circle({
-			id: 'enemy-' + value.position.x + '-' + value.position.y,
-			x: (value.position.x + 0.5) * tileSize,
-			y: (value.position.y + 0.5) * tileSize,
-			radius: tileSize * 0.4,
-			fill: 'black',
-			zIndex: 10
-		}),
-		new Rect({
-			id: 'enemy-hp-' + value.position.x + '-' + value.position.y,
-			x: (value.position.x + 0.5) * tileSize - hpBarTotalWidth / 2,
-			y: value.position.y * tileSize - hpBarHeight * 1.5,
-			fill: 'red',
-			height: hpBarHeight,
-			width: hpBarRedWidth,
-			zIndex: 100
-		}),
-		new Rect({
-			id: 'enemy-hplost-' + value.position.x + '-' + value.position.y,
-			x: (value.position.x + 0.5) * tileSize - hpBarTotalWidth / 2 + hpBarRedWidth,
-			y: value.position.y * tileSize - hpBarHeight * 1.5,
-			fill: '#bbbbbb',
-			height: hpBarHeight,
-			width: hpBarTotalWidth - hpBarRedWidth,
-			zIndex: 100
-		})
-	];
-}
+import './index.css';
 
 function getPathAround(mapContent: GameMapTile[], x: number, y: number) : GameMapTile[] {
     return [
@@ -117,7 +49,6 @@ function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[], applyDama
 
     return newEnemies;
 }
-
 
 export default function GameEra({ era } : GameEraInput) {
 	const { width, height } = useWindowDimensions();
@@ -172,8 +103,8 @@ export default function GameEra({ era } : GameEraInput) {
 					return [];
 				}
 
-				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(element, tileSize));
-				const convertedEntities = enemies.map((entity) => ConvertEntitiesToCanvas2DElements(entity, tileSize)).flat();
+				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(element, tileSize)).flat();
+				const convertedEntities = enemies.map((entity) => ConvertEnemiesToCanvas2DElements(entity, tileSize)).flat();
 
 				return [
 					...convertedMapContent,
