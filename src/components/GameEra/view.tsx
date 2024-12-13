@@ -116,7 +116,7 @@ export default function GameEra({ era } : GameEraInput) {
 						...convertedEntities
 					];
 				}}
-				onHover={(element) => setHoveredId(element.id)}
+				onHover={(element) => setHoveredId(element?.id)}
 				onRightClick={console.log}
 			/>
 			<span className="era-name">{era.toUpperCase()}</span>
