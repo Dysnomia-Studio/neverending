@@ -51,6 +51,8 @@ function moveEnemies(currEnemies: Enemy[], mapContent : GameMapTile[], applyDama
 }
 
 export default function GameEra({ era } : GameEraInput) {
+	const [hoveredId, setHoveredId] = useState<string | null>(null);
+
 	const { width, height } = useWindowDimensions();
 	const mapContent = useMapContent(era);
 	const applyDamages = useApplyDamages();
@@ -104,7 +106,7 @@ export default function GameEra({ era } : GameEraInput) {
 					return [];
 				}
 
-				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(element, tileSize)).flat();
+				const convertedMapContent = mapContent.content.map((element) => ConvertTilesToCanvas2DElements(element, tileSize, [hoveredId])).flat();
 				const convertedEntities = enemies.map((entity) => ConvertEnemiesToCanvas2DElements(entity, tileSize)).flat();
 
 				return [
@@ -112,7 +114,7 @@ export default function GameEra({ era } : GameEraInput) {
 					...convertedEntities
 				];
 			}}
-			onHover={() => {}}
+			onHover={(element) => setHoveredId(element.id)}
 			onRightClick={console.log}
 		/>
 		<span className="era-name">{era.toUpperCase()}</span>

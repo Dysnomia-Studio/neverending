@@ -7,6 +7,7 @@ TO DO:
 - [X] Use Position interface everywhere 
 - [X] Mobs having HP
 - [X] User Credits
+- [X] Show turret range when hovering
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
 - [ ] Turrets attacking the mobs + Earn money when killing them
 - [ ] Spawn enemies every X seconds
@@ -19,4 +20,5 @@ TO DO:
 - [ ] Unlock times ones after another
 - [ ] Main menu
 - [ ] Trans-time boss
+- [ ] Option/Button to show all ranges at the same time
 - [ ] (Not sure for demo) Procedurally-generated map

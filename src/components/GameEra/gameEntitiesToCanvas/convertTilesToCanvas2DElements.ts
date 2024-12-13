@@ -8,7 +8,7 @@ import {
 import GameMapTile from '../../../models/GameMapTile';
 import TileType from '../../../models/TileType';
 
-export default function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number) : (Circle | Rect | CanvasImage | Poly)[] {
+export default function ConvertTilesToCanvas2DElements(value: GameMapTile, tileSize: number, showRanges : string[]) : (Circle | Rect | CanvasImage | Poly)[] {
 	let color : string = '#666666';
 	switch(value.tileType) {
 		case TileType.Building:
@@ -31,12 +31,31 @@ export default function ConvertTilesToCanvas2DElements(value: GameMapTile, tileS
 			break;
 	}
 
-	return new Rect({
-		id: value.position.x + '-' + value.position.y,
-		x: value.position.x * tileSize,
-		y: value.position.y * tileSize,
-		fill: color,
-		height: tileSize,
-		width: tileSize
-	});
+	const currentId = value.tileType + '-' + value.position.x + '-' + value.position.y;
+	const canvasElements = [];
+	if(showRanges.includes(currentId)) {
+		canvasElements.push(
+			new Circle({
+				id: 'range-' + currentId,
+				x: (value.position.x + 0.5) * tileSize,
+				y: (value.position.y + 0.5) * tileSize,
+				radius: tileSize * value.range,
+				fill: '#ff000055',
+				zIndex: 10
+			})
+		);
+	}
+
+	canvasElements.push(
+		new Rect({
+			id: currentId,
+			x: value.position.x * tileSize,
+			y: value.position.y * tileSize,
+			fill: color,
+			height: tileSize,
+			width: tileSize
+		})
+	);
+
+	return canvasElements;
 }

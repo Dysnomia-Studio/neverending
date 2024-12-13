@@ -100,6 +100,7 @@ function getMapForEra(era : Era) {
 					y,
 				},
 				tileType,
+				range: tileType === TileType.Turret ? 3 : 0, // TODO
 			});
 		}
 	}
