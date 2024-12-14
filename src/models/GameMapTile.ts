@@ -1,10 +1,13 @@
+import Enemy from './Enemy';
 import Position from './Position';
 import TileType from './TileType';
 
 export default interface GameMapTile {
+	damages?: number | undefined,
 	position: Position,
-	tileType: TileType,
 	range: number,
+	tileType: TileType,
+	targets: Enemy[],
 };
 
 export const GAMEMAP_TILES_AMOUNT_X = 32;

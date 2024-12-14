@@ -11,9 +11,10 @@ TO DO:
 - [X] Per-era design
 - [X] Spawn enemies every X seconds
 - [X] Main menu
-- [ ] Turrets attacking the mobs + Earn money when killing them
+- [X] Turrets attacking the mobs + Earn money when killing them
 - [ ] Let the player place turrets (generic)
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
+- [ ] Show turrets shots
 - [ ] Waves
 - [ ] Different turrets types
 - [ ] Different enemies types

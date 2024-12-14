@@ -96,6 +96,8 @@ export default function getDefaultMapForEra(era : Era) {
 				},
 				tileType,
 				range: tileType === TileType.Turret ? 3 : 0, // TODO
+				damages: tileType === TileType.Turret ? 1 : 0, // TODO
+				targets: [],
 			});
 		}
 	}
