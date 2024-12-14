@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import GameEra from '../../components/GameEra';
 import GameLostPopup from '../../components/GameLostPopup';
 
+import GlobalGameContextProvider from '../../contexts/GlobalGameContext';
+import GameWorldContextProvider from '../../contexts/GameWorldContext';
+
 import useGameLoop from '../../hooks/useGameLoop';
 import useHealthPoints from '../../hooks/useHealthPoints';
 import useUserCredits from '../../hooks/useUserCredits';
@@ -11,7 +14,7 @@ import Era from '../../models/Era';
 
 import './index.css';
 
-export default function Game() {
+function PrivateGamePage() {
 	useGameLoop();
 
 	const healthPoints = useHealthPoints();
@@ -34,4 +37,14 @@ export default function Game() {
 			</div>
 		</>
 	);
+}
+
+export default function PublicGamePage() {
+	return (
+		<GlobalGameContextProvider>
+			<GameWorldContextProvider>
+				<PrivateGamePage />
+			</GameWorldContextProvider>
+		</GlobalGameContextProvider>
+	)
 }

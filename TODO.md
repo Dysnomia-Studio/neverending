@@ -13,8 +13,8 @@ TO DO:
 - [X] Main menu
 - [X] Turrets attacking the mobs + Earn money when killing them
 - [X] Loose when we reach 0 HP
+- [X] Reset points/credits/score when restarting the game
 - [ ] Let the player place turrets (generic)
-- [ ] Reset points/credits/score when restarting the game
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
 - [ ] Show turrets shots
 - [ ] Waves
