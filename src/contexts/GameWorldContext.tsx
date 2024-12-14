@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 
 import EnemiesList from '../models/EnemiesList';
-import EnemyType from '../models/EnemyType';
 import Era from '../models/Era';
 import GameMapList from '../models/GameMapList';
 import GameWorldContextModel from '../models/GameWorldContextModel';
@@ -18,17 +17,7 @@ export default function GameWorldContextProvider({ children } : { children: Reac
 		const newMapContent : GameMapList = {};
 
 		for(const era in Era) {
-			newEnemies[era.toLowerCase()] = [{
-				enemyType: EnemyType.Dark_Knight,
-				position: { 
-					x: 0,
-					y: 9,
-				},
-				visitedTiles: [],
-				damages: 1,
-				health: Math.round(Math.random() * 10),
-				maxHealth: 10
-			}];
+			newEnemies[era.toLowerCase()] = [];
 			newMapContent[era.toLowerCase()] = getDefaultMapForEra(era as Era);
 		}
 

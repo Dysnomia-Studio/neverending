@@ -9,9 +9,9 @@ TO DO:
 - [X] User Credits
 - [X] Show turret range when hovering
 - [X] Per-era design
+- [X] Spawn enemies every X seconds
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
 - [ ] Turrets attacking the mobs + Earn money when killing them
-- [ ] Spawn enemies every X seconds
 - [ ] Waves
 - [ ] Let the player place turrets (generic)
 - [ ] Different turrets types
