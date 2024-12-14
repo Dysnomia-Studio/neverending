@@ -1,5 +1,6 @@
 import GameEra from '../../components/GameEra';
 
+import useGameLoop from '../../hooks/useGameLoop';
 import useHealthPoints from '../../hooks/useHealthPoints';
 import useUserCredits from '../../hooks/useUserCredits';
 
@@ -8,6 +9,8 @@ import Era from '../../models/Era';
 import './index.css';
 
 export default function Game() {
+	useGameLoop();
+
 	const healthPoints = useHealthPoints();
 	const credits = useUserCredits();
 

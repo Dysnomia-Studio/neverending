@@ -1,11 +1,6 @@
-import { createContext, useEffect, useState } from 'react';
-
 import Era from '../models/Era';
-import GameMap, { GAMEMAP_TILES_AMOUNT_X, GAMEMAP_TILES_AMOUNT_Y } from '../models/GameMap';
-import GameMapTile from '../models/GameMapTile';
+import GameMapTile, { GAMEMAP_TILES_AMOUNT_X, GAMEMAP_TILES_AMOUNT_Y } from '../models/GameMapTile';
 import TileType from '../models/TileType';
-
-export const GameMapContext = createContext<GameMap[]>([]);
 
 const map = `
 ????????????????????????????????
@@ -31,7 +26,7 @@ PPPUBUUUUUUUUUUUUUUUP333333ZZZ??
 
 const mapLines : string[] = map.split('\n').filter(x => x !== '');
 
-function getMapForEra(era : Era) {
+export default function getDefaultMapForEra(era : Era) {
 	const entries : GameMapTile[] = [];
 	for(let y = 0; y < GAMEMAP_TILES_AMOUNT_Y; y++) {
 		const mapLine : string[] = mapLines[y].split('');
@@ -106,27 +101,4 @@ function getMapForEra(era : Era) {
 	}
 
 	return entries;
-}
-
-export default function GameMapContextProvider({ children } : { children: React.ReactNode }) {
-	const [gameMapsContent, setGameMapContent]  = useState<GameMap[]>([]);
-
-	useEffect(() => {
-		setGameMapContent([{
-			era: Era.Medieval,
-			content: getMapForEra(Era.Medieval),
-		}, {
-			era: Era.Modern,
-			content: getMapForEra(Era.Modern),
-		}, {
-			era: Era.Future,
-			content: getMapForEra(Era.Future),
-		}])
-	}, []);
-
-	return (
-		<GameMapContext.Provider value={gameMapsContent}>
-			{children}
-		</GameMapContext.Provider>
-	);
 }

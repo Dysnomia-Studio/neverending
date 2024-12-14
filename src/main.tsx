@@ -2,15 +2,15 @@ import { createRoot } from 'react-dom/client';
 
 import Game from './pages/Game';
 
-import GameMapContextProvider from './contexts/GameMapContext';
+import GameWorldContextProvider from './contexts/GameWorldContext';
 
 import './index.css';
 import GlobalGameContextProvider from './contexts/GlobalGameContext';
 
 createRoot(document.getElementById('root')!).render(
 	<GlobalGameContextProvider>
-		<GameMapContextProvider>
+		<GameWorldContextProvider>
 			<Game />
-		</GameMapContextProvider>
+		</GameWorldContextProvider>
 	</GlobalGameContextProvider>,
 )

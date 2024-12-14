@@ -3,13 +3,13 @@ import { useContext } from 'react';
 import { GameWorldContext } from '../contexts/GameWorldContext';
 
 import Era from '../models/Era';
-import GameMapTile from '../models/GameMapTile';
+import Enemy from '../models/Enemy';
 
-export default function useMapContent(era : Era) : GameMapTile[] | null {
+export default function useEnemies(era : Era) : Enemy[] | null {
 	const data = useContext(GameWorldContext);
 	if(data === null) {
 		return null;
 	}
 
-	return data.maps[era];
+	return data.enemies[era];
 }
