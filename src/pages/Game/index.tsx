@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 
 import GameEra from '../../components/GameEra';
+import GameLostPopup from '../../components/GameLostPopup';
 
 import useGameLoop from '../../hooks/useGameLoop';
 import useHealthPoints from '../../hooks/useHealthPoints';
@@ -15,6 +16,9 @@ export default function Game() {
 
 	const healthPoints = useHealthPoints();
 	const credits = useUserCredits();
+	if(healthPoints <= 0) {
+		return (<GameLostPopup />);
+	}
 
 	return (
 		<>
@@ -29,5 +33,5 @@ export default function Game() {
 				<p>Credits: {credits}</p>
 			</div>
 		</>
-	)
+	);
 }

@@ -12,7 +12,9 @@ TO DO:
 - [X] Spawn enemies every X seconds
 - [X] Main menu
 - [X] Turrets attacking the mobs + Earn money when killing them
+- [X] Loose when we reach 0 HP
 - [ ] Let the player place turrets (generic)
+- [ ] Reset points/credits/score when restarting the game
 - [ ] Fix pathfinding to prevent going in places where it'll blocked
 - [ ] Show turrets shots
 - [ ] Waves
@@ -23,4 +25,5 @@ TO DO:
 - [ ] Unlock times ones after another
 - [ ] Trans-time boss
 - [ ] Option/Button to show all ranges at the same time
+- [ ] Local leaderboard
 - [ ] (Not sure for demo) Procedurally-generated map

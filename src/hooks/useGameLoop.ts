@@ -3,9 +3,11 @@ import { useEffect } from 'react';
 import moveEnemies from '../business/moveEnemies';
 import shootEnemies from '../business/shootEnemies';
 
+import useAddKilledEnemyToStats from './useAddKilledEnemyToStats';
 import useAllMapsContent from './useAllMapsContent';
 import useApplyDamages from './useApplyDamages';
 import useEarnCredits from './useEarnCredits';
+import useHealthPoints from './useHealthPoints';
 import useSetEnemies from './useSetEnemies';
 
 import Era from '../models/Era';
@@ -27,9 +29,11 @@ export default function useGameLoop() {
 	const applyDamages = useApplyDamages();
 	const setEnemies = useSetEnemies();
 	const earnCredits = useEarnCredits();
+	const healthPoints = useHealthPoints();
+	const addKilledEnemyToStats = useAddKilledEnemyToStats();
 
 	useEffect(() => {
-		if(mapContent === null || setEnemies === null) {
+		if(mapContent === null || setEnemies === null || healthPoints <= 0 || earnCredits === null || addKilledEnemyToStats === null) {
 			return;
 		}
 
@@ -48,7 +52,7 @@ export default function useGameLoop() {
 
 					resetTargets(mapContent[eraId]);
 
-					const damagedEnemies = shootEnemies(currEnemies[eraId], mapContent[eraId], earnCredits); // TODO apply damages, remove killed enemies, add credits
+					const damagedEnemies = shootEnemies(currEnemies[eraId], mapContent[eraId], earnCredits, addKilledEnemyToStats); // TODO apply damages, remove killed enemies, add credits
 					const movedEnemies = moveEnemies(damagedEnemies, mapContent[eraId], applyDamages);
 
 					if(shouldSpawnEnemy) {
@@ -70,10 +74,10 @@ export default function useGameLoop() {
 
 				return newEnemiesList;
 			});
-		}, 100);
+		}, 1000);
 
 		return () => clearInterval(intervalId);
-	}, [mapContent, applyDamages, setEnemies]);
+	}, [mapContent, applyDamages, setEnemies, healthPoints]);
 
 	return
 }
