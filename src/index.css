@@ -49,3 +49,12 @@ html {
 	font-family: var(--main-font);
 }
 
+/* a */
+a {
+	color: white;
+	font-weight: normal;
+	text-decoration: underline;
+}
+a:hover {
+	font-weight: bold;
+}

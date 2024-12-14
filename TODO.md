@@ -10,16 +10,16 @@ TO DO:
 - [X] Show turret range when hovering
 - [X] Per-era design
 - [X] Spawn enemies every X seconds
-- [ ] Fix pathfinding to prevent going in places where it'll blocked
+- [X] Main menu
 - [ ] Turrets attacking the mobs + Earn money when killing them
-- [ ] Waves
 - [ ] Let the player place turrets (generic)
+- [ ] Fix pathfinding to prevent going in places where it'll blocked
+- [ ] Waves
 - [ ] Different turrets types
 - [ ] Different enemies types
 - [ ] Let the player place buildings + different buildings types
 - [ ] 30 fps enemies movement
 - [ ] Unlock times ones after another
-- [ ] Main menu
 - [ ] Trans-time boss
 - [ ] Option/Button to show all ranges at the same time
 - [ ] (Not sure for demo) Procedurally-generated map

@@ -27,7 +27,7 @@ export default function useGameLoop() {
 			setEnemies((currEnemies) => {
 				const newEnemiesList : EnemiesList = {};
 				for(const era in Era) {
-					const damagedEnemies = currEnemies[era.toLowerCase()]; // TODO
+					const damagedEnemies = currEnemies[era.toLowerCase()]; // TODO apply damages, remove killed enemies, add credits
 					const movedEnemies = moveEnemies(damagedEnemies, mapContent[era.toLowerCase()], applyDamages);
 
 					if(timeBeforeNextEnemy === 0) {

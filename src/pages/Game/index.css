@@ -13,3 +13,7 @@
 .game-sidebar {
 	padding: 1rem;
 }
+
+.game .back-to-menu {
+	position: fixed;
+}

@@ -1,16 +1,19 @@
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router';
 
-import Game from './pages/Game';
+import Router from './components/Router';
 
 import GameWorldContextProvider from './contexts/GameWorldContext';
-
-import './index.css';
 import GlobalGameContextProvider from './contexts/GlobalGameContext';
 
+import './index.css';
+
 createRoot(document.getElementById('root')!).render(
-	<GlobalGameContextProvider>
-		<GameWorldContextProvider>
-			<Game />
-		</GameWorldContextProvider>
-	</GlobalGameContextProvider>,
+	<BrowserRouter>
+		<GlobalGameContextProvider>
+			<GameWorldContextProvider>
+				<Router />
+			</GameWorldContextProvider>
+		</GlobalGameContextProvider>
+	</BrowserRouter>,
 )

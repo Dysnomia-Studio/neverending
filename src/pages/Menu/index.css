@@ -1,0 +1,19 @@
+.menu {
+	font-size: 3rem;
+	margin: 0 auto;
+	max-width: 800px;
+	width: 100%;
+}
+.menu h1 {
+	text-align: center;
+}
+.menu h1 * {
+	vertical-align: middle;
+}
+.menu .clock {
+	font-size: 3rem;
+}
+.menu a {
+	display: block;
+	text-decoration: none;
+}
