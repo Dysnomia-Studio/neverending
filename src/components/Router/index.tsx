@@ -10,6 +10,7 @@ export default function Router() {
 			<Route index element={<Menu />} />
 			<Route path="game" element={<Game />} />
 			<Route path="credits" element={<Credits />} />
+			<Route path="*" element={<Menu />} />
 		</Routes>
 	);
 }
