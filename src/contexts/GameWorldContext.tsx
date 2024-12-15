@@ -17,8 +17,10 @@ export default function GameWorldContextProvider({ children } : { children: Reac
 		const newMapContent : GameMapList = {};
 
 		for(const era in Era) {
-			newEnemies[era.toLowerCase()] = [];
-			newMapContent[era.toLowerCase()] = getDefaultMapForEra(era as Era);
+			const lowerCaseEraName = era.toLowerCase();
+
+			newEnemies[lowerCaseEraName] = [];
+			newMapContent[lowerCaseEraName] = getDefaultMapForEra(lowerCaseEraName);
 		}
 
 		setEnemies(newEnemies);
