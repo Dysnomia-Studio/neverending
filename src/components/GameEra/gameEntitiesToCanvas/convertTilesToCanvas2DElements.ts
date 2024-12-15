@@ -1,20 +1,23 @@
 import { CanvasObject, Circle, Rect } from 'canvas2d-wrapper';
 
-import Era from '../../../models/Era';
-import GameMapTile from '../../../models/GameMapTile';
+import getTileId from '../../../business/getTileId';
 
 import palettes from './colorPalettes';
 
-export default function ConvertTilesToCanvas2DElements(era: Era, value: GameMapTile, tileSize: number, showRanges : string[]) : CanvasObject[] {
-	const currentId = value.tileType + '-' + value.position.x + '-' + value.position.y;
+import Era from '../../../models/Era';
+import GameMapTile from '../../../models/GameMapTile';
+
+
+export default function ConvertTilesToCanvas2DElements(era: Era, currentTile: GameMapTile, tileSize: number, showRanges : string[]) : CanvasObject[] {
+	const currentId = getTileId(currentTile);
 	const canvasElements = [];
 	if(showRanges.includes(currentId)) {
 		canvasElements.push(
 			new Circle({
 				id: 'range-' + currentId,
-				x: (value.position.x + 0.5) * tileSize,
-				y: (value.position.y + 0.5) * tileSize,
-				radius: tileSize * value.range,
+				x: (currentTile.position.x + 0.5) * tileSize,
+				y: (currentTile.position.y + 0.5) * tileSize,
+				radius: tileSize * currentTile.range,
 				fill: '#ff000055',
 				zIndex: 10
 			})
@@ -24,9 +27,9 @@ export default function ConvertTilesToCanvas2DElements(era: Era, value: GameMapT
 	canvasElements.push(
 		new Rect({
 			id: currentId,
-			x: value.position.x * tileSize,
-			y: value.position.y * tileSize,
-			fill: palettes[era][value.tileType],
+			x: currentTile.position.x * tileSize,
+			y: currentTile.position.y * tileSize,
+			fill: palettes[era][currentTile.tileType],
 			height: tileSize,
 			width: tileSize
 		})
