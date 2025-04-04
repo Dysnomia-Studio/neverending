@@ -25,7 +25,7 @@ export default function Menu() {
 			<Link to="/game">Start game</Link>
 			<Link to="/credits">Credits</Link>
 			<a href="https://github.com/Dysnomia-Studio/neverending" target="_blank" rel="noopener noreferrer">Github</a>
-			<a href="https://docs.google.com/document/d/13qa7aEOF8PbOszvkcduzts7GgkT00R6T5ZtDrRG6rKo/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Game Design Document</a>
+			<a href="https://drive.proton.me/urls/PTVGGENRZM#wJ5DKvhfaBDR" target="_blank" rel="noopener noreferrer">Game Design Document</a>
 		</div>
 	);
 }
